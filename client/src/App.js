@@ -10,13 +10,15 @@ import UpdateForm from './components/UpdateForm';
 const App = () => {
   const [savedList, setSavedList] = useState([]);
   const [movieList, setMovieList] = useState([]);
-  const [mov, setMov] = useState([]);
+  const [mov, setMov] = useState([]);//new state
 
   const getMovieList = () => {
+    
     axios
       .get("http://localhost:5000/api/movies")
       .then(res => setMovieList(res.data))
       .catch(err => console.log(err.response));
+      console.log(movieList);
   };
 
   const addToSavedList = movie => {
@@ -25,7 +27,9 @@ const App = () => {
 
   useEffect(() => {
     getMovieList();
-  }, []);
+    
+  }, [mov]);//dependancy
+  console.log('dependancy',mov);
 
   return (
     <>

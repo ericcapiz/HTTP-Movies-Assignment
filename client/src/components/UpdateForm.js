@@ -39,10 +39,10 @@ const UpdateForm = (props)=>{
         e.preventDefault();
 
         axios
-        .put(`http://localhost:5000/api/movies/${movie.id}`, movie)
+        .put(`http://localhost:5000/api/movies/${id}`,movie)
         .then((res)=>{
             props.setMov(res.data);
-            push(`/movies/${movie.id}`);
+            push(`/movies/${id}`);
         })
         .catch((err)=> console.log('unable to update', err));
     };
