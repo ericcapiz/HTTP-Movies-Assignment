@@ -14,23 +14,24 @@ const UpdateForm = (props)=>{
     const {push} = useHistory();
 
     useEffect(()=>{
-        axios.get(`http://localhost:5000/api/movies/${id}`)
+        axios
+        .get(`http://localhost:5000/api/movies/${id}`)
         .then((res)=>{
             setMovie(res.data);
         })
         .catch((err)=>console.log('Unable to get selected movie',err));
     },[id]);
 
-    const changeHandler = (e) =>{
-        e.persist();
-        let value = e.target.value;
-        if(e.target.name === "metascore"){
+    const changeHandler = (ev) =>{
+        ev.persist();
+        let value = ev.target.value;
+        if(ev.target.name === "metascore"){
             value = parseInt(value,10);
         }
 
         setMovie({
             ...movie,
-            [e.target.name]: value
+            [ev.target.name]: value
         });
     };
 
@@ -38,10 +39,10 @@ const UpdateForm = (props)=>{
         e.preventDefault();
 
         axios
-        .put(`http://localhost:5000/api/movies/${id}`, movie)
+        .put(`http://localhost:5000/api/movies/${movie.id}`, movie)
         .then((res)=>{
-            props.setMovies(res.data);
-            push(`/movies/${id}`);
+            props.setMov(res.data);
+            push(`/movies/${movie.id}`);
         })
         .catch((err)=> console.log('unable to update', err));
     };
